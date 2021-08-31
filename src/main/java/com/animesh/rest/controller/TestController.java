@@ -18,6 +18,8 @@ import java.util.stream.Stream;
 @RequestMapping("/normal")
 public class TestController {
 
+    static final ClassLoader loader = TestController.class.getClassLoader();
+
     @GetMapping("/value/{name}")
     public String getValues(@PathVariable String name){
         return "Hello "+name+" !!!";
@@ -34,7 +36,7 @@ public class TestController {
         FileReader fileInputStream = null;
         BufferedReader bufferedReader = null;
         try {
-             fileInputStream = new FileReader("src/main/resources/ReadMe.txt");
+             fileInputStream = new FileReader(loader.getResource("ReadMe.txt").getPath());
              bufferedReader = new BufferedReader(fileInputStream);
 
         } catch (FileNotFoundException e) {
